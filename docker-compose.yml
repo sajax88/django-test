@@ -1,0 +1,49 @@
+services:
+  testapp:
+    container_name: testapp
+    image: testapp
+    build: .
+    command: bash -c "
+      python manage.py migrate
+      && python manage.py collectstatic --noinput
+      && python manage.py runserver 0.0.0.0:${APP_PORT}"
+      # For PROD, instead of dev server:
+      #  uwsgi --http 0.0.0.0:${APP_PORT} --py-autoreload=1 --module testapp.wsgi:application
+    volumes:
+      - ./:/app
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    networks:
+      - testapp
+    depends_on:
+      - postgresql
+      - redis
+
+  postgresql:
+    container_name: testapp_postgres
+    image: postgres:16.4-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+      - ./db-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - testapp
+
+  redis:
+    container_name: testapp_redis
+    image: redis:7.4-alpine
+    volumes:
+      - redis:/data
+    networks:
+      - testapp
+
+volumes:
+  postgresql:
+    driver: local
+  redis:
+    driver: local
+
+networks:
+  testapp:
