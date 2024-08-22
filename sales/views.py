@@ -12,5 +12,3 @@ class SalesListView(ListAPIView):
     filterset_class = SalesListFilter
     ordering_fields = ("date_of_sale", "quantity_sold", "total_sales_amount")
     ordering = ("-date_of_sale",)
-    # Tiny page size just to demonstrate that pagination works
-    page_size = 5

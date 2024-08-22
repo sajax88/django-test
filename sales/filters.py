@@ -23,4 +23,5 @@ class SalesListFilter(rest_framework_filters.FilterSet):
         field_name="date_of_sale__date", lookup_expr="lte"
     )
 
-    # TODO: query profiler
+    # TODO: tests
+    # TODO: query profiler (silk?)
