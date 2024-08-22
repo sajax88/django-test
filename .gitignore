@@ -2,4 +2,4 @@
 /.venv/
 /.idea/
 /static/
-testapp/__pycache__/
+*.pyc

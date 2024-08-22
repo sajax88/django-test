@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
+    "rest_framework",
+    "drf_spectacular",
     # Our own apps
     "sales",
 ]
@@ -134,3 +137,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REST_FRAMEWORK = {
+    # Disables browsable api (we have Swagger already)
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ],
+    "COERCE_DECIMAL_TO_STRING": False,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+IS_SWAGGER_UI_ENABLED = os.environ.get("IS_SWAGGER_UI_ENABLED") == "True"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Testapp API",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
