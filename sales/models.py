@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.db.models.functions import TruncDate
 
 
 class Product(models.Model):
@@ -12,6 +13,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        indexes = (models.Index(fields=("category",)),)
+
 
 class SalesRecord(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
@@ -22,3 +26,10 @@ class SalesRecord(models.Model):
 
     def __str__(self):
         return f"Sale on {self.date_of_sale}"
+
+    class Meta:
+        indexes = (
+            models.Index(
+                TruncDate("date_of_sale"), "date_of_sale", name="date_of_sale_date_idx"
+            ),
+        )
