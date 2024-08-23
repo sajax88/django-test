@@ -23,4 +23,14 @@ class SalesListFilter(rest_framework_filters.FilterSet):
         field_name="date_of_sale__date", lookup_expr="lte"
     )
 
-    # TODO: query profiler (silk?)
+
+class SalesAggregationFilter(rest_framework_filters.FilterSet):
+    # Use custom filter with empty value:
+    # we also want to be able to look for the products without category
+    category = CategoryFilter(field_name="product__category")
+    start_date = rest_framework_filters.DateFilter(
+        field_name="date_of_sale__date", lookup_expr="gte"
+    )
+    end_date = rest_framework_filters.DateFilter(
+        field_name="date_of_sale__date", lookup_expr="lte"
+    )

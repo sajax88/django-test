@@ -6,5 +6,9 @@ app_name = "programs"
 
 urlpatterns = [
     path("", views.SalesListView.as_view(), name="sales-list"),
-    # TODO path("/aggregate/", views.SalesAggregationView.as_view(), name="sales-aggregation"),
+    path(
+        "aggregate/<slug:aggregation_type>/",
+        views.SalesAggregationView.as_view(),
+        name="sales-aggregation",
+    ),
 ]

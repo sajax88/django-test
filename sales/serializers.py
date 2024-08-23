@@ -25,3 +25,13 @@ class SalesListSerializer(serializers.ModelSerializer):
             "total_sales_amount",
             "date_of_sale",
         ]
+
+
+class SalesAggregatedSerializer(serializers.Serializer):
+    group = serializers.CharField()
+    total_sales = serializers.DecimalField(
+        max_digits=8, decimal_places=2, coerce_to_string=False
+    )
+    average_price = serializers.DecimalField(
+        max_digits=8, decimal_places=2, coerce_to_string=False
+    )

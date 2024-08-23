@@ -13,6 +13,9 @@ from sales.models import Product, SalesRecord
 class TestSalesList(TestCase):
 
     def setUp(self) -> None:
+        # For response comparison
+        self.maxDiff = None
+
         self.client = APIClient()
 
     def test_sales_list_response_format(self):

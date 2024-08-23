@@ -16,7 +16,7 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 
-# TODO: use python-decouple instead
+# TODO We can also use python-decouple instead for easier bool converting
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

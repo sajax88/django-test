@@ -21,14 +21,15 @@ For example, we can use DRF TokenAuthentication, they also recommend using
 
 ### Optimization and efficiency considerations
 
-- We could think about limiting the data for the chart endpoint by default (e.g. displaying just last year), so getting all the data would not be a default option. Maybe even make the date filters required
-- Since the sales records are not likely to change, we could cache the aggregated results (a bit easier when grouped by month, for the categories groups we'll have to add date range to the cache key)
+- We could think about limiting the data for the chart endpoint by default (e.g. displaying just last year), so getting all the data would not be a default option. Maybe even make the date filters required.
+- Since the sales records are not likely to change, we could cache the aggregated results (need to add dates range to the cache key).
 - We can use a profiler to monitor the requests time and decide if anything requires optimization
-(I've used [Silk](https://github.com/jazzband/django-silk), but of course there are many of them)
-- Sentry also has some performance monitoring and even looks for N+1 problems, among other things.
+(I've used [Silk](https://github.com/jazzband/django-silk), but of course there are many of them). 
+Sentry also has some performance monitoring and even looks for N+1 problems, among other things.
 
 
 ### Other considerations
-- I have not added the date filters validation (end_date >= start_date), because in the worst case they just won't get any data, but we could add them for better user experience and to avoid unnecessary calls to db.
-
-! TODO: Describe possible edge cases or other implementational risks
+- We're dealing with money, so rounding question (for average price) should be discussed with business
+- SalesAggregationFilter duplicates SalesListFilter, but it's probably better to keep them separate if they are not linked in UI.
+- I have not added the date filters validation (end_date >= start_date, no future dates), because in the worst case they just won't get any data, but we could add them for better user experience and to avoid unnecessary calls to db.
+- Thanks for reminding me how much I hate Django aggregations :)
