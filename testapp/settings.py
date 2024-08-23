@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework",
     "drf_spectacular",
+    "django_extensions",
     # Our own apps
     "sales",
 ]
