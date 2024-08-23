@@ -22,7 +22,7 @@ For example, we can use DRF TokenAuthentication, they also recommend using
 ### Optimization and efficiency considerations
 
 - We could think about limiting the data for the chart endpoint by default (e.g. displaying just last year), so getting all the data would not be a default option. Maybe even make the date filters required.
-- Since the sales records are not likely to change, we could cache the aggregated results (need to add dates range to the cache key).
+- Since the sales records are not likely to change, we could cache the aggregated results (need to add filters to the cache key).
 - We can use a profiler to monitor the requests time and decide if anything requires optimization
 (I've used [Silk](https://github.com/jazzband/django-silk), but of course there are many of them). 
 Sentry also has some performance monitoring and even looks for N+1 problems, among other things.
